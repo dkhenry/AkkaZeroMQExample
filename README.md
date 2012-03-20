@@ -6,6 +6,7 @@ This is a small example program I put together to display how to use the ZeroMQ 
 
 
 * Create your base Actor Classes 
+
   ```scala
 class ZeroMQServer()extends Actor {   
   // The server instantiates and Ownes the Reply Socket
@@ -28,24 +29,30 @@ class ZeroMQClient extends Actor {
 
 
 * Instantiate the actors 
+
   ```scala
 	val server = system.actorOf(Props[ZeroMQServer],name+"Server")
     val client = system.actorOf(Props[ZeroMQClient],name+"Client")
 ```
 
 * Create the request socket bound to the client
+ 
   ```scala
     val request = system.newReqSocket(Array(SocketType.Req,Listener(troupe._2),Connect("tcp://127.0.0.1:5555")))
 ```
 
 * Send a message 
+ 
   ```scala
     request ! ZMQMessage(Seq(Frame("Hello World !")))
 ```
 
 There are still parts that need to be done better like 
+
 * The client should own the connecting socket 
+ 
 * This shouldn't get this during shut down 
+ 
   > java.lang.IllegalStateException: Promise already completed: akka.dispatch.DefaultPromise@1e64a937 tried to complete with Right(NoResults)
   >     at akka.dispatch.Promise$class.complete(Future.scala:746)
   >     at akka.dispatch.DefaultPromise.complete(Future.scala:811)
@@ -56,6 +63,7 @@ There are still parts that need to be done better like
   >     at akka.jsr166y.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:997)
   >     at akka.jsr166y.ForkJoinPool.runWorker(ForkJoinPool.java:1495)
   >     at akka.jsr166y.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:104)
+
 * The Thread.sleep's should go away 
 
 However it wors as is so I am incliend to move onto the next part of my project 
