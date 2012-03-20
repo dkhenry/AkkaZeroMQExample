@@ -25,7 +25,8 @@ class ZeroMQClient extends Actor {
     case Begin => println { "Sending Message" }
 	case m: ZMQMessage => println { "We got a reply: "+m.firstFrameAsString } ; sender ! m
   }
-}```
+}
+```
 
 
 * Instantiate the actors 
