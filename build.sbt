@@ -1,4 +1,4 @@
-name := "Akka Test"
+name := "Akka ZeroMQ Example"
  
 version := "1.0"
  
